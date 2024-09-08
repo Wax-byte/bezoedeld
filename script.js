@@ -6,14 +6,19 @@ class Tile { // Tegel
     constructor(arr) { // array [0,1,2,0] is NW niets, NE muur, SE deur, SW niets
         this.arr = arr;
     }
+
+    drawSegment(ctx, x, y, px, py) {
+        ctx.beginPath();
+        ctx.moveTo(x * 50 + 25, y * 50 + 25);
+        ctx.lineTo(x * 50 + 25 + px, y * 50 + 25 + py);
+        ctx.stroke();
+    }
+
     draw(ctx, x, y) {
         shuffle(this.arr);
 
         if (this.arr[0] >= 1) {
-            ctx.beginPath();
-            ctx.moveTo(x * 50 + 25, y * 50 + 25);
-            ctx.lineTo(x * 50, y * 50);
-            ctx.stroke();
+            this.drawSegment(ctx, x, y, -25, -25);
         }
         if (this.arr[0] == 2) {
             ctx.beginPath();
@@ -21,10 +26,7 @@ class Tile { // Tegel
             ctx.stroke();
         }
         if (this.arr[1] >= 1) {
-            ctx.beginPath();
-            ctx.moveTo(x * 50 + 25, y * 50 + 25);
-            ctx.lineTo(x * 50 + 50, y * 50);
-            ctx.stroke();
+            this.drawSegment(ctx, x, y, 25, -25);
         }
         if (this.arr[1] == 2) {
             ctx.beginPath();
@@ -32,10 +34,7 @@ class Tile { // Tegel
             ctx.stroke();
         }
         if (this.arr[2] >= 1) {
-            ctx.beginPath();
-            ctx.moveTo(x * 50 + 25, y * 50 + 25);
-            ctx.lineTo(x * 50 + 50, y * 50 + 50);
-            ctx.stroke();
+            this.drawSegment(ctx, x, y, 25, 25);
         }
         if (this.arr[2] == 2) {
             ctx.beginPath();
@@ -43,10 +42,7 @@ class Tile { // Tegel
             ctx.stroke();
         }
         if (this.arr[3] >= 1) {
-            ctx.beginPath();
-            ctx.moveTo(x * 50 + 25, y * 50 + 25);
-            ctx.lineTo(x * 50, y * 50 + 50);
-            ctx.stroke();
+            this.drawSegment(ctx, x, y, 25, -25);
         }
         if (this.arr[3] == 2) {
             ctx.beginPath();
