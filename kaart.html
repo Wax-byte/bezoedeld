@@ -15,6 +15,7 @@ world = Array()
 class Tile { // Tegel
     constructor(arr) { // array [0,1,2,0] is NW niets, NE muur, SE deur, SW niets
         this.arr = arr;
+        this.rotation = 0;
     }
 
     drawSegment(ctx, x, y, px, py) {
@@ -25,36 +26,36 @@ class Tile { // Tegel
     }
 
     draw(ctx, x, y) {
-        shuffle(this.arr);
+        let rotated = rotateLeft(this.arr, this.rotation);
 
-        if (this.arr[0] >= 1) {
+        if (rotated[0] >= 1) {
             this.drawSegment(ctx, x, y, -25, -25);
         }
-        if (this.arr[0] == 2) {
+        if (rotated[0] == 2) {
             ctx.beginPath();
             ctx.arc(x * 50 + 10, y * 50 + 10, 10, 0, 2 * Math.PI);
             ctx.stroke();
         }
-        if (this.arr[1] >= 1) {
+        if (rotated[1] >= 1) {
             this.drawSegment(ctx, x, y, 25, -25);
         }
-        if (this.arr[1] == 2) {
+        if (rotated[1] == 2) {
             ctx.beginPath();
             ctx.arc(x * 50 + 40, y * 50 + 10, 10, 0, 2 * Math.PI);
             ctx.stroke();
         }
-        if (this.arr[2] >= 1) {
+        if (rotated[2] >= 1) {
             this.drawSegment(ctx, x, y, 25, 25);
         }
-        if (this.arr[2] == 2) {
+        if (rotated[2] == 2) {
             ctx.beginPath();
             ctx.arc(x * 50 + 40, y * 50 + 40, 10, 0, 2 * Math.PI);
             ctx.stroke();
         }
-        if (this.arr[3] >= 1) {
+        if (rotated[3] >= 1) {
             this.drawSegment(ctx, x, y, -25, 25);
         }
-        if (this.arr[3] == 2) {
+        if (rotated[3] == 2) {
             ctx.beginPath();
             ctx.arc(x * 50 + 10, y * 50 + 40, 10, 0, 2 * Math.PI);
             ctx.stroke();
@@ -99,8 +100,6 @@ function shuffle(array) {
 }
 
 function rotateLeft(array, positions) {
-  let length = array.length;
-  positions = positions % length; // Handle cases where positions > length
   return array.slice(positions).concat(array.slice(0, positions));
 }
 
@@ -128,6 +127,7 @@ class World {
             for (let y = 0 ; y < this.height; ++y) {
                 let r = getRandomInt(tiles.length);
                 let tile = tiles[r];
+                tile.rotation = getRandomInt(4);
                 this.arr[x + y*this.width] = tile;
                 tiles.splice(r, 1);
                 if (tiles.length == 0) return;
