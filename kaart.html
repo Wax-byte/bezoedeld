@@ -98,6 +98,12 @@ function shuffle(array) {
     return array;
 }
 
+function rotateLeft(array, positions) {
+  let length = array.length;
+  positions = positions % length; // Handle cases where positions > length
+  return array.slice(positions).concat(array.slice(0, positions));
+}
+
 function rotateLeftInPlace(array, positions) {
     let length = array.length;
     positions = positions % length; // Handle cases where positions > length
