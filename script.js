@@ -92,6 +92,13 @@ function shuffle(array) {
     return array;
 }
 
+function rotateLeftInPlace(array, positions) {
+    let length = array.length;
+    positions = positions % length; // Handle cases where positions > length
+    let removed = array.splice(0, positions);
+    array.push(...removed);
+}
+
 class World {
     constructor(width, height) {
         this.width = width;
