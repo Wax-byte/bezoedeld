@@ -15,6 +15,10 @@ class Tile { // Tegel
         ctx.stroke();
     }
 
+    getSegment(i) {
+        return this.arr[(i + this.rotation) % 4];
+    }
+
     draw(ctx, x, y) {
         let rotated = rotateLeft(this.arr, this.rotation);
 
@@ -100,8 +104,6 @@ function rotateLeftInPlace(array, positions) {
     array.push(...removed);
 }
 
-var maxFitTries = 100;
-
 class World {
     constructor(width, height) {
         this.width = width;
@@ -121,31 +123,31 @@ class World {
         this.arr[x + y*this.width] = tile;
     }
 
-    upperLeftDangling(x, y) {
-        if (x == 0) return false;
-        if (y == 0) return false;
-
+    upperLeftCount(x, y) {
         let count = 0;
 
-        if (this.getTile(x-1, y-1).arr[2] >= 1) ++count;
-        if (this.getTile(x, y-1).arr[3] >= 1) ++count;
-        if (this.getTile(x-1, y).arr[1] >= 1) ++count;
+        if (this.getTile(x-1, y-1).getSegment(2) >= 1) ++count;
+        if (this.getTile(x, y-1).getSegment(3) >= 1) ++count;
+        if (this.getTile(x-1, y).getSegment(1) >= 1) ++count;
 
-        return count==1;        
+        return count;        
     }
 
     // for upper left
     fitScoreNW(x, y, tile) {
         let score = 0;
 
-        if (this.upperLeftDangling(x, y)) {
-            if (tile.arr[0] == 0) return -3; // so guaranteed below 0
+        if (x > 0 && y > 0) {
+            let upperLeftCount= this.upperLeftCount(x, y)
+
+            if (upperLeftCount == 1 && tile.getSegment(0) == 0) return -3; // so guaranteed below 0
+            if (upperLeftCount == 0 && tile.getSegment(0) == 1) return -3; // so guaranteed below 0
         }
 
-        if (tile.arr[0] >= 1) {
-            if (x > 0 && y > 0 && this.getTile(x-1, y-1).arr[2] >= 1) ++score;
-            if (y > 0 && this.getTile(x, y-1).arr[3] >= 1) ++score;
-            if (x > 0 && this.getTile(x-1, y).arr[1] >= 1) ++score;
+        if (tile.getSegment(0) >= 1) {
+            if (x > 0 && y > 0 && this.getTile(x-1, y-1).getSegment(2) >= 1) ++score;
+            else if (y > 0 && this.getTile(x, y-1).getSegment(3) >= 1) ++score;
+            else if (x > 0 && this.getTile(x-1, y).getSegment(1) >= 1) ++score;
         }
         return score;
     }
@@ -153,9 +155,9 @@ class World {
     fitScoreNE(x, y, tile) {
         let score = 0;
 
-        if (tile.arr[1] >= 1) {
-            if (y > 0 && this.getTile(x, y-1).arr[2] >= 1) ++score;
-            if (x < this.width-1 && y > 0 && this.getTile(x+1, y-1).arr[2] >= 1) ++score;
+        if (tile.getSegment(1) >= 1) {
+            if (y > 0 && this.getTile(x, y-1).getSegment(2) >= 1) ++score;
+            else if (x < this.width-1 && y > 0 && this.getTile(x+1, y-1).getSegment(2) >= 1) ++score;
         }
         return score;
     }
@@ -163,8 +165,8 @@ class World {
     fitScoreSW(x, y, tile) {
         let score = 0;
 
-        if (tile.arr[3] >= 1) {
-            if (x > 0 && this.getTile(x-1, y).arr[2] >= 1) ++score;
+        if (tile.getSegment(3) >= 1) {
+            if (x > 0 && this.getTile(x-1, y).getSegment(2) >= 1) ++score;
         }
         return score;
     }
@@ -174,11 +176,11 @@ class World {
     }
 
     create() {
-        for (let x = 0 ; x < this.width; ++x) {
-            for (let y = 0 ; y < this.height; ++y) {
-                for(let t = 0; t < maxFitTries; ++t) {
-                    let r = getRandomInt(tiles.length);
-                    let tile = tiles[r];
+        for (let y = 0 ; y < this.height; ++y) {
+            for (let x = 0 ; x < this.width; ++x) {        
+                shuffle(tiles) // shuffle remaining tiles
+                for(let tileIdx = 0; true; ++tileIdx) {
+                    let tile = tiles[tileIdx];
                     
                     tile.rotation = getRandomInt(4);
 
@@ -193,10 +195,10 @@ class World {
                         }
                     }
 
-                    if (maxScore >= 0 || t == maxFitTries-1) {
+                    if (maxScore >= 0 || tileIdx == tiles.length-1) {
                         tile.rotation = maxRotation;
                         this.setTile(x, y, tile);
-                        tiles.splice(r, 1);
+                        tiles.splice(tileIdx, 1);
                         if (tiles.length == 0) return;
                         break;
                     }
@@ -206,8 +208,8 @@ class World {
     }
 
     draw(ctx) {
-        for (let x = 0 ; x < this.width; ++x) {
-            for (let y = 0 ; y < this.height; ++y) {
+        for (let y = 0 ; y < this.height; ++y) {
+            for (let x = 0 ; x < this.width; ++x) {
                 let tile = this.getTile(x, y);
                 if (tile !== undefined) tile.draw(ctx, x, y);
             }
