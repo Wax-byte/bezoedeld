@@ -56,7 +56,7 @@ class Tile { // Tegel
     }
 }
 
-var mult = 3;
+var mult = 300;
 var tiles = [];
 for (let i = 0; i < 15 * mult; ++i) {
     tiles.push(new Tile([1,0,1,0]));
@@ -133,7 +133,7 @@ class World {
     }
 }
 
-var world = new World(10, 10);
+var world = new World(100, 100);
 world.create();
 
 //document.getElementById("demo").innerHTML = "Hello JavaScript!";
