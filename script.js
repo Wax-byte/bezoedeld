@@ -138,10 +138,10 @@ class World {
         let score = 0;
 
         if (x > 0 && y > 0) {
-            let upperLeftCount= this.upperLeftCount(x, y)
+            let upperLeftCount = this.upperLeftCount(x, y)
 
             if (upperLeftCount == 1 && tile.getSegment(0) == 0) return -3; // so guaranteed below 0
-            if (upperLeftCount == 0 && tile.getSegment(0) == 1) return -3; // so guaranteed below 0
+            if (upperLeftCount == 0 && tile.getSegment(0) >= 1) return -3; // so guaranteed below 0
         }
 
         if (tile.getSegment(0) >= 1) {
