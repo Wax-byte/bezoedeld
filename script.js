@@ -2,17 +2,6 @@
 
 world = Array()
 
-function shuffle(array) {
-for (let i = array.length - 1; i > 0; i--) {
-        // Generate a random index from 0 to i
-        let j = Math.floor(Math.random() * (i + 1));
-        
-        // Swap elements array[i] and array[j]
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
-
 class Tile { // Tegel
     constructor(arr) { // array [0,1,2,0] is NW niets, NE muur, SE deur, SW niets
         this.arr = arr;
@@ -90,6 +79,17 @@ for (let i = 0; i < 2 * mult; ++i) {
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
+}
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        // Generate a random index from 0 to i
+        let j = getRandomInt(i + 1);
+        
+        // Swap elements array[i] and array[j]
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }
 
 class World {
