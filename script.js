@@ -13,7 +13,7 @@ class World {
         this.arr = [];
         for (let x = 0 ; x < width; ++x) {
             for (let y = 0 ; y < height; ++y) {
-                this.arr.push(undefined)
+                this.arr.push(null)
             }
         }
     }
@@ -129,7 +129,7 @@ class World {
         for (let y = 0 ; y < this.height; ++y) {
             for (let x = 0 ; x < this.width; ++x) {
                 let tile = this.getTile(x, y);
-                if (tile !== undefined) tile.draw(ctx, x, y);
+                if (tile !== null) tile.draw(ctx, x, y);
             }
         }
     }
@@ -184,22 +184,22 @@ class Tile { // Tegel
 
 var mult = (world.width * world.height) / 33;
 var tiles = [];
-for (let i = 0; i < 15 * mult; ++i) {
+for (let i = 0; i < 18 * mult; ++i) {
     tiles.push(new Tile([1,0,1,0]));
 }
-for (let i = 0; i < 7 * mult; ++i) {
+for (let i = 0; i < 2 * mult; ++i) {
     tiles.push(new Tile([0,0,1,1]));
 }
-for (let i = 0; i < 5 * mult; ++i) {
+for (let i = 0; i < 7 * mult; ++i) {
     tiles.push(new Tile([0,0,0,0]));
 }
-for (let i = 0; i < 2 * mult; ++i) {
+for (let i = 0; i < 4 * mult; ++i) {
     tiles.push(new Tile([1,0,2,0]));
 }
-for (let i = 0; i < 2 * mult; ++i) {
+for (let i = 0; i < 1 * mult; ++i) {
     tiles.push(new Tile([0,0,1,2]));
 }
-for (let i = 0; i < 2 * mult; ++i) {
+for (let i = 0; i < 1 * mult; ++i) {
     tiles.push(new Tile([0,0,2,1]));
 }
 
