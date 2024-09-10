@@ -151,12 +151,10 @@ class Tile { // Tegel
     }
 
     drawQuadrant(ctx, x, y, dx, dy, lineType) {
-        if (lineType >= 1) {
+        if (lineType >= 1)
             this.drawLineSegment(ctx, x, y, dx, dy)
-        }
-        if (lineType == 2) {
+        if (lineType == 2)
             this.drawCircle(ctx, x, y, dx, dy)
-        }
     }
 
     getSegment = (i) => this.arr[(i + this.rotation) % 4]
