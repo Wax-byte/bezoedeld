@@ -111,19 +111,19 @@ class World {
 
     draw(ctx) {
         for (let x = 0 ; x < this.width; ++x) {
-            Tile.prototype.drawSegment(ctx, x, -1, 25, 25);
-            Tile.prototype.drawSegment(ctx, x, -1, -25, 25);
+            Tile.prototype.drawSegment(ctx, x, -1, 1, 1);
+            Tile.prototype.drawSegment(ctx, x, -1, -1, 1);
 
-            Tile.prototype.drawSegment(ctx, x, this.height, 25, -25);
-            Tile.prototype.drawSegment(ctx, x, this.height, -25, -25);
+            Tile.prototype.drawSegment(ctx, x, this.height, 1, -1);
+            Tile.prototype.drawSegment(ctx, x, this.height, -1, -1);
         }
 
         for (let y = 0 ; y < this.height; ++y) {
-            Tile.prototype.drawSegment(ctx, -1, y, 25, 25);
-            Tile.prototype.drawSegment(ctx, -1, y, 25, -25);
+            Tile.prototype.drawSegment(ctx, -1, y, 1, 1);
+            Tile.prototype.drawSegment(ctx, -1, y, 1, -1);
 
-            Tile.prototype.drawSegment(ctx, this.width, y, -25, 25);
-            Tile.prototype.drawSegment(ctx, this.width, y, -25, -25);
+            Tile.prototype.drawSegment(ctx, this.width, y, -1, 1);
+            Tile.prototype.drawSegment(ctx, this.width, y, -1, -1);
         }
 
         for (let y = 0 ; y < this.height; ++y) {
@@ -146,10 +146,10 @@ class Tile { // Tegel
         this.rotation = 0;
     }
 
-    drawSegment(ctx, x, y, px, py) {
+    drawSegment(ctx, x, y, dx, dy) {
         ctx.beginPath();
         ctx.moveTo(x * 50 + 50, y * 50 + 50);
-        ctx.lineTo(x * 50 + 50 + px, y * 50 + 50 + py);
+        ctx.lineTo(x * 50 + 50 + dx * 25, y * 50 + 50 + dy * 25);
         ctx.stroke();
     }
 
@@ -167,25 +167,25 @@ class Tile { // Tegel
         let rotated = rotateLeft(this.arr, this.rotation);
 
         if (rotated[0] >= 1) {
-            this.drawSegment(ctx, x, y, -25, -25);
+            this.drawSegment(ctx, x, y, -1, -1);
         }
         if (rotated[0] == 2) {
             this.drawCircle(ctx, x, y, -12, -12);
         }
         if (rotated[1] >= 1) {
-            this.drawSegment(ctx, x, y, 25, -25);
+            this.drawSegment(ctx, x, y, 1, -1);
         }
         if (rotated[1] == 2) {
             this.drawCircle(ctx, x, y, 12, -12);
         }
         if (rotated[2] >= 1) {
-            this.drawSegment(ctx, x, y, 25, 25);
+            this.drawSegment(ctx, x, y, 1, 1);
         }
         if (rotated[2] == 2) {
             this.drawCircle(ctx, x, y, 12, 12);
         }
         if (rotated[3] >= 1) {
-            this.drawSegment(ctx, x, y, -25, 25);
+            this.drawSegment(ctx, x, y, -1, 1);
         }
         if (rotated[3] == 2) {
             this.drawCircle(ctx, x, y, -12, 12);
