@@ -1,5 +1,11 @@
 //kaart wordt 50 x 50 pt
 
+// a quadrant will be a triple
+// (x, y, q)
+
+// actually multiple arrays
+var quadSets = []
+
 class World {
     constructor(width, height) {
         this.width = width;
@@ -116,7 +122,7 @@ class World {
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
-var world = new World(canvas.width / 50, canvas.height / 50);
+var world = new World(canvas.width / 50 - 1, canvas.height / 50 - 1);
 
 class Tile { // Tegel
     constructor(arr) { // array [0,1,2,0] is NW niets, NE muur, SE deur, SW niets
@@ -126,8 +132,8 @@ class Tile { // Tegel
 
     drawSegment(ctx, x, y, px, py) {
         ctx.beginPath();
-        ctx.moveTo(x * 50 + 25, y * 50 + 25);
-        ctx.lineTo(x * 50 + 25 + px, y * 50 + 25 + py);
+        ctx.moveTo(x * 50 + 50, y * 50 + 50);
+        ctx.lineTo(x * 50 + 50 + px, y * 50 + 50 + py);
         ctx.stroke();
     }
 
@@ -143,7 +149,7 @@ class Tile { // Tegel
         }
         if (rotated[0] == 2) {
             ctx.beginPath();
-            ctx.arc(x * 50 + 10, y * 50 + 10, 10, 0, 2 * Math.PI);
+            ctx.arc(x * 50 + 35, y * 50 + 35, 10, 0, 2 * Math.PI);
             ctx.stroke();
         }
         if (rotated[1] >= 1) {
@@ -151,7 +157,7 @@ class Tile { // Tegel
         }
         if (rotated[1] == 2) {
             ctx.beginPath();
-            ctx.arc(x * 50 + 40, y * 50 + 10, 10, 0, 2 * Math.PI);
+            ctx.arc(x * 50 + 65, y * 50 + 35, 10, 0, 2 * Math.PI);
             ctx.stroke();
         }
         if (rotated[2] >= 1) {
@@ -159,7 +165,7 @@ class Tile { // Tegel
         }
         if (rotated[2] == 2) {
             ctx.beginPath();
-            ctx.arc(x * 50 + 40, y * 50 + 40, 10, 0, 2 * Math.PI);
+            ctx.arc(x * 50 + 65, y * 50 + 65, 10, 0, 2 * Math.PI);
             ctx.stroke();
         }
         if (rotated[3] >= 1) {
@@ -167,7 +173,7 @@ class Tile { // Tegel
         }
         if (rotated[3] == 2) {
             ctx.beginPath();
-            ctx.arc(x * 50 + 10, y * 50 + 40, 10, 0, 2 * Math.PI);
+            ctx.arc(x * 50 + 35, y * 50 + 65, 10, 0, 2 * Math.PI);
             ctx.stroke();
         }
     }
