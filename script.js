@@ -137,6 +137,12 @@ class Tile { // Tegel
         ctx.stroke();
     }
 
+    drawCircle(ctx, x, y, px, py) {
+        ctx.beginPath();
+        ctx.arc(x * 50 + 48 + px, y * 50 + 48 + py, 10, 0, 2 * Math.PI);
+        ctx.stroke();
+    }
+
     getSegment(i) {
         return this.arr[(i + this.rotation) % 4];
     }
@@ -148,33 +154,25 @@ class Tile { // Tegel
             this.drawSegment(ctx, x, y, -25, -25);
         }
         if (rotated[0] == 2) {
-            ctx.beginPath();
-            ctx.arc(x * 50 + 35, y * 50 + 35, 10, 0, 2 * Math.PI);
-            ctx.stroke();
+            this.drawCircle(ctx, x, y, -12, -12);
         }
         if (rotated[1] >= 1) {
             this.drawSegment(ctx, x, y, 25, -25);
         }
         if (rotated[1] == 2) {
-            ctx.beginPath();
-            ctx.arc(x * 50 + 65, y * 50 + 35, 10, 0, 2 * Math.PI);
-            ctx.stroke();
+            this.drawCircle(ctx, x, y, 12, -12);
         }
         if (rotated[2] >= 1) {
             this.drawSegment(ctx, x, y, 25, 25);
         }
         if (rotated[2] == 2) {
-            ctx.beginPath();
-            ctx.arc(x * 50 + 65, y * 50 + 65, 10, 0, 2 * Math.PI);
-            ctx.stroke();
+            this.drawCircle(ctx, x, y, 12, 12);
         }
         if (rotated[3] >= 1) {
             this.drawSegment(ctx, x, y, -25, 25);
         }
         if (rotated[3] == 2) {
-            ctx.beginPath();
-            ctx.arc(x * 50 + 35, y * 50 + 65, 10, 0, 2 * Math.PI);
-            ctx.stroke();
+            this.drawCircle(ctx, x, y, -12, 12);
         }
     }
 }
