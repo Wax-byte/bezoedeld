@@ -153,9 +153,9 @@ class Tile { // Tegel
         ctx.stroke();
     }
 
-    drawCircle(ctx, x, y, px, py) {
+    drawCircle(ctx, x, y, dx, dy) {
         ctx.beginPath();
-        ctx.arc(x * 50 + 48 + px, y * 50 + 48 + py, 10, 0, 2 * Math.PI);
+        ctx.arc(x * 50 + 48 + dx * 12, y * 50 + 48 + dy * 12, 10, 0, 2 * Math.PI);
         ctx.stroke();
     }
 
@@ -170,25 +170,25 @@ class Tile { // Tegel
             this.drawSegment(ctx, x, y, -1, -1);
         }
         if (rotated[0] == 2) {
-            this.drawCircle(ctx, x, y, -12, -12);
+            this.drawCircle(ctx, x, y, -1, -1);
         }
         if (rotated[1] >= 1) {
             this.drawSegment(ctx, x, y, 1, -1);
         }
         if (rotated[1] == 2) {
-            this.drawCircle(ctx, x, y, 12, -12);
+            this.drawCircle(ctx, x, y, 1, -1);
         }
         if (rotated[2] >= 1) {
             this.drawSegment(ctx, x, y, 1, 1);
         }
         if (rotated[2] == 2) {
-            this.drawCircle(ctx, x, y, 12, 12);
+            this.drawCircle(ctx, x, y, 1, 1);
         }
         if (rotated[3] >= 1) {
             this.drawSegment(ctx, x, y, -1, 1);
         }
         if (rotated[3] == 2) {
-            this.drawCircle(ctx, x, y, -12, 12);
+            this.drawCircle(ctx, x, y, -1, 1);
         }
     }
 }
