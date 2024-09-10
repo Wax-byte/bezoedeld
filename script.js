@@ -110,6 +110,22 @@ class World {
     }
 
     draw(ctx) {
+        for (let x = 0 ; x < this.width; ++x) {
+            Tile.prototype.drawSegment(ctx, x, -1, 25, 25);
+            Tile.prototype.drawSegment(ctx, x, -1, -25, 25);
+
+            Tile.prototype.drawSegment(ctx, x, this.height, 25, -25);
+            Tile.prototype.drawSegment(ctx, x, this.height, -25, -25);
+        }
+
+        for (let y = 0 ; y < this.height; ++y) {
+            Tile.prototype.drawSegment(ctx, -1, y, 25, 25);
+            Tile.prototype.drawSegment(ctx, -1, y, 25, -25);
+
+            Tile.prototype.drawSegment(ctx, this.width, y, -25, 25);
+            Tile.prototype.drawSegment(ctx, this.width, y, -25, -25);
+        }
+
         for (let y = 0 ; y < this.height; ++y) {
             for (let x = 0 ; x < this.width; ++x) {
                 let tile = this.getTile(x, y);
