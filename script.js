@@ -201,13 +201,6 @@ function shuffle(array) {
 
 const rotateLeft = (array, positions) => array.slice(positions).concat(array.slice(0, positions))
 
-function rotateLeftInPlace(array, positions) {
-    let length = array.length
-    positions = positions % length // Handle cases where positions > length
-    let removed = array.splice(0, positions)
-    array.push(...removed)
-}
-
 world.create()
 
 world.draw(ctx)
