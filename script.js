@@ -194,7 +194,7 @@ function shuffle(array) {
         let j = getRandomInt(i + 1)
         
         // Swap elements array[i] and array[j]
-        ;[array[i], array[j]] = [array[j], array[i]] // needs semicolon before swap
+        array[i] = [array[j], array[j] = array[i]][0]
     }
     return array
 }
