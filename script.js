@@ -138,6 +138,7 @@ class Tile { // Tegel
     }
 
     drawLineSegment(ctx, x, y, dx, dy) {
+        ctx.strokeStyle = "black"
         ctx.beginPath()
         ctx.moveTo(x * 50 + 50, y * 50 + 50)
         ctx.lineTo(x * 50 + 50 + dx * 25, y * 50 + 50 + dy * 25)
@@ -145,6 +146,7 @@ class Tile { // Tegel
     }
 
     drawCircle(ctx, x, y, dx, dy) {
+        ctx.strokeStyle = "black"
         ctx.beginPath()
         ctx.arc(x * 50 + 48 + dx * 12, y * 50 + 48 + dy * 12, 10, 0, 2 * Math.PI)
         ctx.stroke()
@@ -161,6 +163,13 @@ class Tile { // Tegel
 
     draw(ctx, x, y) {
         let rotated = rotateLeft(this.arr, this.rotation)
+
+        if ((x + y) % 2) {
+            ctx.beginPath()
+            ctx.fillStyle = "#eeeeee"
+            ctx.rect(x * 50 + 25, y * 50 + 25, 50, 50)
+            ctx.fill()
+        }
 
         this.drawQuadrant(ctx, x, y, -1, -1, rotated[0])
         this.drawQuadrant(ctx, x, y, 1, -1, rotated[1])
