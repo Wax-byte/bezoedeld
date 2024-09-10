@@ -159,6 +159,15 @@ class Tile { // Tegel
         ctx.stroke();
     }
 
+    drawQuadrant(ctx, x, y, dx, dy, lineType) {
+        if (lineType >= 1) {
+            this.drawSegment(ctx, x, y, dx, dy);
+        }
+        if (lineType == 2) {
+            this.drawCircle(ctx, x, y, dx, dy);
+        }
+    }
+
     getSegment(i) {
         return this.arr[(i + this.rotation) % 4];
     }
@@ -166,30 +175,10 @@ class Tile { // Tegel
     draw(ctx, x, y) {
         let rotated = rotateLeft(this.arr, this.rotation);
 
-        if (rotated[0] >= 1) {
-            this.drawSegment(ctx, x, y, -1, -1);
-        }
-        if (rotated[0] == 2) {
-            this.drawCircle(ctx, x, y, -1, -1);
-        }
-        if (rotated[1] >= 1) {
-            this.drawSegment(ctx, x, y, 1, -1);
-        }
-        if (rotated[1] == 2) {
-            this.drawCircle(ctx, x, y, 1, -1);
-        }
-        if (rotated[2] >= 1) {
-            this.drawSegment(ctx, x, y, 1, 1);
-        }
-        if (rotated[2] == 2) {
-            this.drawCircle(ctx, x, y, 1, 1);
-        }
-        if (rotated[3] >= 1) {
-            this.drawSegment(ctx, x, y, -1, 1);
-        }
-        if (rotated[3] == 2) {
-            this.drawCircle(ctx, x, y, -1, 1);
-        }
+        this.drawQuadrant(ctx, x, y, -1, -1, rotated[0])
+        this.drawQuadrant(ctx, x, y, 1, -1, rotated[1])
+        this.drawQuadrant(ctx, x, y, 1, 1, rotated[2])
+        this.drawQuadrant(ctx, x, y, -1, 1, rotated[3])
     }
 }
 
