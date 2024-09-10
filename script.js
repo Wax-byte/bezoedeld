@@ -15,12 +15,8 @@ class World {
         this.arr = new Array(width * height)
     }
 
-    getTile(x, y) {
-        return this.arr[x + y*this.width]
-    }
-    setTile(x, y, tile) {
-        this.arr[x + y*this.width] = tile
-    }
+    getTile = (x, y) => this.arr[x + y*this.width]
+    setTile = (x, y, tile) => this.arr[x + y*this.width] = tile
 
     upperLeftCount(x, y) {
         let count = 0
@@ -70,9 +66,7 @@ class World {
         return score
     }
 
-    fitScoreTotal(x, y, tile) {
-        return this.fitScoreNW(x, y, tile) + this.fitScoreNE(x, y, tile) + this.fitScoreSW(x, y, tile)
-    }
+    fitScoreTotal = (x, y, tile) => this.fitScoreNW(x, y, tile) + this.fitScoreNE(x, y, tile) + this.fitScoreSW(x, y, tile)
 
     create() {
         for (let y = 0 ; y < this.height; ++y) {
@@ -165,9 +159,7 @@ class Tile { // Tegel
         }
     }
 
-    getSegment(i) {
-        return this.arr[(i + this.rotation) % 4]
-    }
+    getSegment = (i) => this.arr[(i + this.rotation) % 4]
 
     draw(ctx, x, y) {
         let rotated = rotateLeft(this.arr, this.rotation)
@@ -194,9 +186,7 @@ for (let i = 0; i < 1 * mult; ++i)
 for (let i = 0; i < 1 * mult; ++i)
     tiles.push(new Tile([0,0,2,1]))
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max)
-}
+const getRandomInt = (max) => Math.floor(Math.random() * max)
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -209,9 +199,7 @@ function shuffle(array) {
     return array
 }
 
-function rotateLeft(array, positions) {
-  return array.slice(positions).concat(array.slice(0, positions))
-}
+const rotateLeft = (array, positions) => array.slice(positions).concat(array.slice(0, positions))
 
 function rotateLeftInPlace(array, positions) {
     let length = array.length
