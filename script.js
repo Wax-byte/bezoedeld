@@ -10,10 +10,7 @@ class World {
     constructor(width, height) {
         this.width = width;
         this.height = height;
-        this.arr = [];
-        for (let x = 0 ; x < width; ++x)
-            for (let y = 0 ; y < height; ++y)
-                this.arr.push(null)
+        this.arr = new Array(width * height);
     }
 
     getTile(x, y) {
