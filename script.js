@@ -1,3 +1,5 @@
+'use strict';
+
 //kaart wordt 50 x 50 pt
 
 // a quadrant will be a triple
